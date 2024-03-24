@@ -21,19 +21,19 @@ export const putDb = async (content) => {
   const request = store.put({id: 1, value: content});
   const result = await request;
   console.log('🚀 - data saved to the database', result);
-}
+};
 
 // TODO: Add logic for a method that gets all the content from the database
 export const getDb = async () => {
   console.log('getDb not implemented');
-  const contactDb = await openDB('jate', 1);
-  const transaction = contactDb.transaction('jate', 'readonly');
-  const store = transaction.objectStore('jate');
+  const contactDb = await openDB('JATE', 1);
+  const transaction = contactDb.transaction('JATE', 'readonly');
+  const store = transaction.objectStore('JATE');
   const request = store.getAll();
   const result = await request;
-  console.log('🚀 - data retrieved from the database', result)
+  console.log('🚀 - data retrieved from the database', result);
   return result?.value;
-}
+};
 
 
 initdb();

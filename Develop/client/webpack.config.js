@@ -1,6 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const path = require('path');
+const path = require("path");
 const { InjectManifest } = require('workbox-webpack-plugin');
 
 // TODO: Add and configure workbox plugins for a service worker and manifest file.
@@ -20,21 +20,23 @@ module.exports = () => {
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
-        filename: 'index.html',
-        chunks: ['main'],
+        filename: 'Webpack Plugin',
       }),
-      new HtmlWebpackPlugin({
-        template: './src/install.html',
-        filename: 'install.html',
-        chunks: ['install'],
-      }),
+      new MiniCssExtractPlugin(),
+      new InjectManifest({
+        swSrc: './src/sw.js',
+        swDest: 'sw.js',
+      }), 
       new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
         name: 'Text Editor',
-        short_name: 'Text Editor',
-        description: 'An offline text editor.',
-        background_color: '#01579b',
-        theme_color: '#ffffff',
+        short_name: 'JATE',
+        description: 'Offline text editor with PWA capabilities.',
+        background_color: '#225ca3',
+        theme_color: '#225ca3',
         start_url: '/',
+        PublicPath: '/',
         icons: [
           {
             src: path.resolve('src/assets/icons/icon-192x192.png'),
@@ -42,10 +44,6 @@ module.exports = () => {
             destination: path.join('assets', 'icons'),
           },
         ],
-      }),
-      new InjectManifest({
-        swSrc: './src/sw.js',
-        swDest: 'sw.js',
       }),
     ],
 
@@ -56,16 +54,23 @@ module.exports = () => {
           use: ['style-loader', 'css-loader'],
         },
         {
-          test: /\.js$/,
+          test: /\.(png|jpe?g|gif)$/i,
+          exclude: /node_modules/,
+        },
+        {
+          test: /\.m?js$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
               presets: ['@babel/preset-env'],
+              plugins: [
+                "@babel/transfrom-runtime",
+                "@babel/plugin-propasal-object-rest-spread"
+              ]
             },
           },
         },
-        
       ],
     },
   };
