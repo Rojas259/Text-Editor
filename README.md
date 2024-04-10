@@ -1,7 +1,7 @@
 # Text-Editor
 ## Description
-    The employee tracker pro uses node and sql to allow you to view roles and delails of your employees. You can also designated your employees to have certain all in department.
-    
+The employee tracker pro uses node and sql to allow you to view roles and delails of your employees. You can also designated your employees to have certain all in department.
+
 ## Table of Contents
   - [Installation](#installation)
   - [Usage](#usage)
